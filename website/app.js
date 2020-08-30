@@ -29,14 +29,17 @@ btn.addEventListener("click",()=>{
     let newZip = zipCode.value;
     getWeather(baseUrl,newZip,apiKey)
     .then((data)=>{
+        if(data){
         postData('/all',{date:newDate,temp: data.main.temp,usrFeel:usrFeelings.value});
-    }).then(
-        updateUi
-    );
-    
+        updateUi();
+        }else{
+            alert("No Data to be returned");
+        }
+    })
 });
 
 const getWeather = async(baseUrl,newZip,apiKey)=>{
+    if(zipCode.value){
     const res = await fetch(baseUrl+newZip+apiKey);
     try{
         const data = await res.json();
@@ -44,15 +47,19 @@ const getWeather = async(baseUrl,newZip,apiKey)=>{
     }catch(err){
         console.log('error',err);
     }
+    }else{
+        alert("Please Enter Your ZipCode");
+    }
 }
 
 const updateUi = async()=>{
     const req = await fetch('/all');
+    const allData = await req.json();
+    console.log(allData);
     try{
-        const allData = await req.json();
-        document.getElementById('date').innerHTML = allData.date;
-        document.getElementById('temp').innerHTML = allData.temp;
-        document.getElementById('content').innerHTML = allData.usrFeel;
+        document.getElementById('date').innerHTML = `<p>Date: ${allData.date}</p>`;
+        document.getElementById('temp').innerHTML = `<p>Temp: ${allData.temp}</p>`;
+        document.getElementById('content').innerHTML = `<p>Your Feeling: ${allData.usrFeel}</p>`;
     }catch(err){
         console.log('error:' + err);
     }

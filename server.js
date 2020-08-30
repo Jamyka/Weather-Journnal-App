@@ -23,8 +23,8 @@ const server = app.listen(port,()=>{
 
 //app Get Route
 app.get('/all',(req, res) => {
-    res.send(projectData);
-    console.log("data Submitted to the client side");
+      res.send(projectData);
+     console.log("data Submitted to the client side");
 });
 
 // app Post Route
