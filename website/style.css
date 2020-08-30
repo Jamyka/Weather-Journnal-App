@@ -37,17 +37,10 @@ position: relative;
     display: inline;
 }
 
-#date{
-
-}
-
 #temp{
 color: red;
 }
 
-#content{
-
-}
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
